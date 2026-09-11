@@ -1,4 +1,5 @@
-﻿using MCPServer.Entities;
+﻿using MCPServer.DTOs;
+using MCPServer.Entities;
 using MCPServer.Interfaces;
 using ModelContextProtocol.Server;
 using System.ComponentModel;
@@ -32,10 +33,17 @@ namespace MCPServer.Tools
             return person;
         }
 
-        [McpServerTool, Description("Updates the active status of a person by their ID")]
-        public bool UpdatePersonActiveStatus(int id, bool isActive)
+        [McpServerTool, Description("Activates or deactivates a person by their identifier")]
+        public OperationResultDTO UpdatePersonActiveStatus(
+            [Description("Identifier of the perdon to update")]
+            int id,
+            [Description("Indicates whether the person will be active (true) or inactive (false).")]
+            bool isActive)
         {
-            return _peopleRepository.UpdateActive(id, isActive);
+            var updateResult = _peopleRepository.UpdateActive(id, isActive);
+
+            if(!updateResult) return new OperationResultDTO(false, $"Failed to update the active status of the person with ID {id}. Please check if the Id person exists.");
+            return new OperationResultDTO(true, "Person active status updated successfully.");
         }
     }
 }
