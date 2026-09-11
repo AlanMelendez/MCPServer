@@ -3,7 +3,7 @@ using MCPServer.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddMcpServer().WithHttpTransport().WithToolsFromAssembly();
+builder.Services.AddMcpServer().WithHttpTransport().WithToolsFromAssembly().WithPromptsFromAssembly();
 
 builder.Services.AddUserServices();
 
