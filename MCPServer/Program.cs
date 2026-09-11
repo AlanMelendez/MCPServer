@@ -1,7 +1,11 @@
+using MCPServer.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddMcpServer().WithHttpTransport();
+
+builder.Services.AddUserServices();
 
 builder.Services.AddCors(cors =>
 {
